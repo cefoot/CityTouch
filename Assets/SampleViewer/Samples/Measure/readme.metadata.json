@@ -1,0 +1,15 @@
+{
+    "category": "Analysis",
+    "description": "measure distance by drawing",
+    "formal_name": "Measure distance",
+    "ignore": false,
+    "images": [
+        "Measure.PNG"
+    ],
+    "keywords": [
+        "measure",
+        "geometry",
+        "analysis"
+    ],
+    "title": "Measure distance"
+}
