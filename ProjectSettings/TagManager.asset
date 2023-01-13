@@ -20,9 +20,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - TactileFeedback
+  - ForceFeedback
+  - Grasp
   - HandLocal
   - HandRemote
   - 

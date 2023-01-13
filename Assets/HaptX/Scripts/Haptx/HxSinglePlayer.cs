@@ -18,7 +18,7 @@ public class HxSinglePlayer : MonoBehaviour {
     Transport dummyTransport = gameObject.AddComponent<DummyTransport>();
     NetworkManager networkManager = gameObject.AddComponent<NetworkManager>();
     networkManager.playerPrefab = _hxPlayerPrefab;
-    Transport.activeTransport = dummyTransport;
+    Transport.active = dummyTransport;
     networkManager.StartHost();
   }
 }

@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1873391669522200, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
       propertyPath: m_Name
-      value: HaptxCore
+      value: HaptxCore Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4859358244854730, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
       propertyPath: m_RootOrder
@@ -54,6 +54,22 @@ PrefabInstance:
     - target: {fileID: 4859358244854730, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114580763871944300, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
+      propertyPath: graspLayers.m_Bits
+      value: 131073
+      objectReference: {fileID: 0}
+    - target: {fileID: 114580763871944300, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
+      propertyPath: _physicsAuthorityMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114580763871944300, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
+      propertyPath: forceFeedbackLayers.m_Bits
+      value: 65537
+      objectReference: {fileID: 0}
+    - target: {fileID: 114580763871944300, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
+      propertyPath: tactileFeedbackLayers.m_Bits
+      value: 32769
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
