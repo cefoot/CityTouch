@@ -4,6 +4,25 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 using System.Globalization;
+// TODO: add library imports
+
+
+public class Foo
+{
+    public int Id { get; set; }
+    public float Latitude { get; set; }
+    public float Longitude { get; set; }
+}
+
+public sealed class FooMap : ClassMap<Foo>
+{
+    public FooMap()
+    {
+        Map(m => m.Id).Name("INCIDENT_KEY");
+        Map(m => m.Latitude).Name("Latitude");
+        Map(m => m.Longitude).Name("Longitude");
+    }
+}
 
 public class csvimp : MonoBehaviour
 {
@@ -20,9 +39,6 @@ public class csvimp : MonoBehaviour
     private CultureInfo culture;
 
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -31,27 +47,40 @@ public class csvimp : MonoBehaviour
         culture.NumberFormat.NumberDecimalSeparator = ".";
     }
 
+    public static Stream GenerateStreamFromString(string s)
+    {
+        var stream = new MemoryStream();
+        var writer = new StreamWriter(stream);
+        writer.Write(s);
+        writer.Flush();
+        stream.Position = 0;
+        return stream;
+    }
+
     void readCSV()
     {
-        string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
-        int tableSize = data.Length / 2;
-        dataList.dataPoints = new Vector2[tableSize];
+        using (var writer = GenerateStreamFromString(textAssetData.text))
+        using (var reader = new StreamReader(writer))
+        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            var data = csv.GetRecords<Foo>();
+        }
 
-        for (int i = 0; i < tableSize; i++)
+        int tableSize = data.Length;
+
+        foreach (let point in data)
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.SetParent(transform);
 
             float rdNum = Random.Range(0.8f, 1.05f);
-            var dataIdx = i * 2;
-            dataList.dataPoints[i] = new Vector2(float.Parse(data[dataIdx], culture) / 125000,
-            float.Parse(data[dataIdx + 1],culture) / 125000 );
+            //dataList.dataPoints[i] = new Vector2(float.Parse(data[dataIdx], culture) / 125000,
+            // / 125000 );
 
+            //TODO: set HP transforms
             cube.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
             cube.transform.localPosition = new Vector3(dataList.dataPoints[i].x, rdNum, dataList.dataPoints[i].y);
         }
-
-
     }
 
 }
