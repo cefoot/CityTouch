@@ -4,21 +4,29 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 using System.Globalization;
+using System.IO;
+using CsvHelper.Configuration;
+using CsvHelper;
+using Unity.VisualScripting;
+using Esri.HPFramework;
+using Esri.ArcGISMapsSDK.Components;
+using System.Linq;
+using Esri.GameEngine.Map;
 // TODO: add library imports
 
 
-public class Foo
+public class Crime
 {
-    public int Id { get; set; }
-    public float Latitude { get; set; }
-    public float Longitude { get; set; }
+    public int INCIDENT_KEY { get; set; }
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
 }
 
-public sealed class FooMap : ClassMap<Foo>
+public sealed class CrimeData : ClassMap<Crime>
 {
-    public FooMap()
+    public CrimeData()
     {
-        Map(m => m.Id).Name("INCIDENT_KEY");
+        Map(m => m.INCIDENT_KEY).Name("INCIDENT_KEY");
         Map(m => m.Latitude).Name("Latitude");
         Map(m => m.Longitude).Name("Longitude");
     }
@@ -37,12 +45,11 @@ public class csvimp : MonoBehaviour
 
     public Data dataList = new Data();
     private CultureInfo culture;
+    public HPRoot HPRoot;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        readCSV();
+        StartCoroutine(readCSV());
         culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
         culture.NumberFormat.NumberDecimalSeparator = ".";
     }
@@ -57,29 +64,37 @@ public class csvimp : MonoBehaviour
         return stream;
     }
 
-    void readCSV()
+    IEnumerator readCSV()
     {
-        using (var writer = GenerateStreamFromString(textAssetData.text))
-        using (var reader = new StreamReader(writer))
+        IEnumerable<Crime> data;
+        using (var reader = new StringReader(textAssetData.text))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-            var data = csv.GetRecords<Foo>();
-        }
+            data = csv.GetRecords<Crime>().Take(400);
+            foreach (var point in data)
+            {
+                yield return new WaitForEndOfFrame();
+                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube.transform.SetParent(HPRoot.transform, false);
 
-        int tableSize = data.Length;
+                float rdNum = Random.Range(0.8f, 1.05f);
 
-        foreach (let point in data)
-        {
-            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.transform.SetParent(transform);
+                //TODO: set HP transforms
+                cube.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+                cube.AddComponent<HPTransform>();
+                cube.AddComponent<ArcGISLocationComponent>().Position = new Esri.GameEngine.Geometry.ArcGISPoint(
+                    point.Longitude,
+                    point.Latitude,
+                    rdNum, 
+                    new Esri.GameEngine.Geometry.ArcGISSpatialReference(4326));
+                yield return new WaitForEndOfFrame();
+                Debug.Log($"Long:{point.Longitude}:Lat:{point.Latitude} ({cube.transform.localPosition.ToString("F3")})");
+                var worldPos = cube.transform.position;
 
-            float rdNum = Random.Range(0.8f, 1.05f);
-            //dataList.dataPoints[i] = new Vector2(float.Parse(data[dataIdx], culture) / 125000,
-            // / 125000 );
-
-            //TODO: set HP transforms
-            cube.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
-            cube.transform.localPosition = new Vector3(dataList.dataPoints[i].x, rdNum, dataList.dataPoints[i].y);
+                //cube.transform.localPosition = transform.InverseTransformDirection(cube.transform.localPosition);
+                //hpTrans.UniversePosition = new Unity.Mathematics.double3(point.Latitude, rdNum, point.Longitude);
+                //cube.transform.localPosition = new Vector3(point.Latitude, rdNum, point.Longitude);
+            }
         }
     }
 
