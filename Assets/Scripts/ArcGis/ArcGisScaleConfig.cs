@@ -9,7 +9,7 @@ public class ArcGisScaleConfig : MonoBehaviour
     public Vector3 TargetScale = new Vector3(0.0002f, 0.0002f, 0.0002f);
 
     [SerializeField]
-    public int ObjectLayer = 14;
+    public int ObjectLayer = 16;
 
     public UnityEvent ZoomApplied;
 
