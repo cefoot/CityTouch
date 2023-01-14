@@ -1,0 +1,20 @@
+{
+    "name": "HaptX-Complete",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d6ed8da25fff6d1498f07839f707dc51",
+        "GUID:4b59d1ed6321d46449ee08ef120a75a9",
+        "GUID:20c9863c0b38cb24d845dcfcccb7e327"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "Android"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
