@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Codice.Client.BaseCommands.Fileinfo;
 using UnityEditor;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Tools : MonoBehaviour
+public class Tools : UnityEditor.Build.IPreprocessBuildWithReport
 {
+    public int callbackOrder => 1000;//last thing to do
+
     [MenuItem("Tools/esri/Apply arcgis fix")]
     public static void ApplyArcGisFix()
     {
@@ -45,5 +48,10 @@ public class Tools : MonoBehaviour
         {
             UnHideObjects(item.gameObject);
         }
+    }
+
+    public void OnPreprocessBuild(BuildReport report)
+    {
+        ApplyArcGisFix();
     }
 }

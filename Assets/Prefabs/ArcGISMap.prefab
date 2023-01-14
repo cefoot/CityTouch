@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6278407022696184173}
   - component: {fileID: 6278407022696184170}
   - component: {fileID: 6278407022696184171}
-  - component: {fileID: 521274807}
   m_Layer: 0
   m_Name: ArcGISMap
   m_TagString: Untagged
@@ -117,19 +116,6 @@ MonoBehaviour:
   RootChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &521274807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6278407022696184169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19ab9313e636c4d498cecd861af2e4d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetScale: {x: 0.0002, y: 0.0006, z: 0.0002}
 --- !u!1 &6278407023796632402
 GameObject:
   m_ObjectHideFlags: 0

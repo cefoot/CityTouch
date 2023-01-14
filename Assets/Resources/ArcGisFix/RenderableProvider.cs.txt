@@ -20,6 +20,11 @@ using UnityEngine.Rendering;
 
 namespace Esri.ArcGISMapsSDK.Renderer.Renderables
 {
+	public static class RenderLayer
+	{
+		public static int Layer = 1;
+	}
+
 	public static class RenderZoomLevel
 	{
 		public static Vector3 Zoom = Vector3.one;
@@ -152,6 +157,7 @@ namespace Esri.ArcGISMapsSDK.Renderer.Renderables
 		private static GameObject CreateGameObject(int id)
 		{
 			var gameObject = new GameObject();
+            gameObject.layer = RenderLayer.Layer;
 			gameObject.name = "ArcGISGameObject" + id;
 			gameObject.hideFlags = HideFlags.DontSaveInEditor;
 			gameObject.SetActive(false);
