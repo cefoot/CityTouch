@@ -32,6 +32,7 @@ public class BaseballProperties
     public string LEAGUE;
     public string TEAM;
     public string NAME;
+    public string ObjectId;
 }
 
 [System.Serializable]
@@ -44,7 +45,7 @@ public class Geometry
 
 public class FeatureLayerQuery : MonoBehaviour
 {
-    public string FeatureLayerURL = "https://services.arcgis.com/P3ePLMYs2RVChkJx/ArcGIS/rest/services/Major_League_Baseball_Stadiums/FeatureServer/0";
+    public string FeatureLayerURL = "https://services6.arcgis.com/wuONiWa1WYQCnLzh/ArcGIS/rest/services/Boston_Crime_data/FeatureServer/0";
     
     // This prefab will be instatiated for each feature we parse
     public GameObject TouchablePrefab;
@@ -83,6 +84,7 @@ public class FeatureLayerQuery : MonoBehaviour
         // https://developers.arcgis.com/rest/services-reference/enterprise/query-feature-service-layer-.htm
 
         string QueryRequestURL = FeatureLayerURL + "/Query?" + MakeRequestHeaders();
+        Debug.Log(QueryRequestURL);
         UnityWebRequest Request = UnityWebRequest.Get(QueryRequestURL);
         yield return Request.SendWebRequest();
 
@@ -105,11 +107,15 @@ public class FeatureLayerQuery : MonoBehaviour
     // outFields=LEAGUE,TEAM,NAME specifies the fields we want in the response
     private string MakeRequestHeaders()
     {
-        string[] OutFields =
+        // string[] OutFields =
+        // {
+        //     "LEAGUE",
+        //     "TEAM",
+        //     "NAME"
+        // };
+        string[] OutFields = 
         {
-            "LEAGUE",
-            "TEAM",
-            "NAME"
+            "ObjectId"
         };
 
         string OutFieldHeader = "outFields=";
@@ -154,14 +160,17 @@ public class FeatureLayerQuery : MonoBehaviour
         var deserialized = JsonUtility.FromJson<FeatureCollectionData>(Response);
         foreach (Feature feature in deserialized.features)
         {
-            Debug.Log("feature:" + feature.properties.NAME);
+            Debug.Log("feature:" + feature.properties.ObjectId);
+            if(feature.geometry.coordinates == null) {
+                continue;
+            }
             double Longitude = feature.geometry.coordinates[0];
             double Latitude = feature.geometry.coordinates[1];
 
             ArcGISPoint Position = new ArcGISPoint(Longitude, Latitude, PrefabSpawnHeight, new ArcGISSpatialReference(FeatureSRWKID));
 
             var NewPrefab = Instantiate(TouchablePrefab, this.transform);
-            NewPrefab.name = feature.properties.NAME;
+            NewPrefab.name = feature.properties.ObjectId;
             Points.Add(NewPrefab);
             NewPrefab.SetActive(true);
             var LocationComponent = NewPrefab.GetComponent<ArcGISLocationComponent>();
@@ -170,9 +179,11 @@ public class FeatureLayerQuery : MonoBehaviour
 
             var PointInfo = NewPrefab.GetComponent<PointInfo>();
 
-            PointInfo.SetInfo(feature.properties.NAME);
-            PointInfo.SetInfo(feature.properties.TEAM);
-            PointInfo.SetInfo(feature.properties.LEAGUE);
+            PointInfo.SetInfo(feature.properties.ObjectId);
+
+            // PointInfo.SetInfo(feature.properties.NAME);
+            // PointInfo.SetInfo(feature.properties.TEAM);
+            // PointInfo.SetInfo(feature.properties.LEAGUE);
 
             PointInfo.ArcGISCamera = ArcGISCamera;
             PointInfo.SetSpawnHeight(PrefabSpawnHeight);
