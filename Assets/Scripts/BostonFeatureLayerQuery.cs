@@ -12,26 +12,23 @@ using Esri.GameEngine.Geometry;
 // When implementing your own version of this the Baseball Properties would need to 
 // be updated.
 [System.Serializable]
-public class FeatureCollectionData
+public class BostonFeatureCollectionData
 {
     public string type;
-    public Feature[] features;
+    public BostonFeature[] features;
 }
 
 [System.Serializable]
-public class Feature
+public class BostonFeature
 {
     public string type;
     public Geometry geometry;
-    public BaseballProperties properties;
+    public BostonProperties properties;
 }
 
 [System.Serializable]
-public class BaseballProperties
+public class BostonProperties
 {
-    public string LEAGUE;
-    public string TEAM;
-    public string NAME;
     public string ObjectId;
 }
 
@@ -43,7 +40,7 @@ public class Geometry
 }
 
 
-public class FeatureLayerQuery : MonoBehaviour
+public class BostonFeatureLayerQuery : MonoBehaviour
 {
     public string FeatureLayerURL = "https://services6.arcgis.com/wuONiWa1WYQCnLzh/ArcGIS/rest/services/Boston_Crime_data/FeatureServer/0";
     
@@ -156,9 +153,11 @@ public class FeatureLayerQuery : MonoBehaviour
     // This logic will differ based on the properties you are trying to parse out of the response.
     private void CreateGameObjectsFromResponse(string Response)
     {
+        Debug.Log("Response: " + Response);
         // Deserialize the JSON response from the query.
-        var deserialized = JsonUtility.FromJson<FeatureCollectionData>(Response);
-        foreach (Feature feature in deserialized.features)
+        var deserialized = JsonUtility.FromJson<BostonFeatureCollectionData>(Response);
+        Debug.Log("deserialized: " + deserialized.features);
+        foreach (BostonFeature feature in deserialized.features)
         {
             Debug.Log("feature:" + feature.properties.ObjectId);
             if(feature.geometry.coordinates == null) {

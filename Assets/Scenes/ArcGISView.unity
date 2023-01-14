@@ -1092,6 +1092,7 @@ GameObject:
   m_Component:
   - component: {fileID: 753690052}
   - component: {fileID: 753690053}
+  - component: {fileID: 753690054}
   m_Layer: 0
   m_Name: FeatureManager
   m_TagString: Untagged
@@ -1121,16 +1122,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753690051}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f1cffa41d8354554bce47c6c75b93e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FeatureLayerURL: https://services.arcgis.com/P3ePLMYs2RVChkJx/ArcGIS/rest/services/Major_League_Baseball_Stadiums/FeatureServer/0
+  FeatureLayerURL: https://services6.arcgis.com/wuONiWa1WYQCnLzh/ArcGIS/rest/services/Boston_Crime_data/FeatureServer/0
   TouchablePrefab: {fileID: 100006, guid: 8f2875655f485be4d8438962a9d306bc, type: 3}
   Points: []
   ArcGISCamera: {fileID: 975785865}
   PointSelector: {fileID: 684175687}
+--- !u!114 &753690054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753690051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534996e69d88d493dbeb6873941edc0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FeatureLayerURL: https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex/FeatureServer/0
+  TouchablePrefab: {fileID: 6812567467488529675, guid: 69935d6b2f0724c79bf574a85ed51490, type: 3}
+  Points: []
+  ArcGISCamera: {fileID: 975785865}
 --- !u!1 &931960739
 GameObject:
   m_ObjectHideFlags: 0
