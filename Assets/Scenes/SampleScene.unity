@@ -461,7 +461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &613468835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,8 +828,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 380588849}
     m_Modifications:
     - target: {fileID: 521274807, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: TargetScale.y
+      value: 0.0006
       objectReference: {fileID: 0}
     - target: {fileID: 6278407022696184169, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
       propertyPath: m_Name
@@ -845,7 +845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6278407022696184173, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6278407022696184173, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -879,24 +879,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6278407023796632395, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6278407023796632405, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4600
-      objectReference: {fileID: 0}
-    - target: {fileID: 6278407023796632405, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.0000000025034808
-      objectReference: {fileID: 0}
-    - target: {fileID: 6278407023796632405, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.000000002503481
-      objectReference: {fileID: 0}
-    - target: {fileID: 6278407023796632407, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
-      propertyPath: position.z
       value: 4600
       objectReference: {fileID: 0}
     m_RemovedComponents: []

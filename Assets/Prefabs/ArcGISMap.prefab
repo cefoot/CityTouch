@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ab9313e636c4d498cecd861af2e4d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetScale: 0.0002
+  TargetScale: {x: 0.0002, y: 0.0006, z: 0.0002}
 --- !u!1 &6278407023796632402
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6278407023796632402}
   m_LocalRotation: {x: 0.70710677, y: -0.0000000025034808, z: 0.000000002503481, w: 0.7071068}
-  m_LocalPosition: {x: 3178.6167, y: 1600, z: 210.73978}
+  m_LocalPosition: {x: 3178.6167, y: 4600, z: 210.73978}
   m_LocalScale: {x: 0.9999997, y: 1, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_IsInitialized: 1
   m_LocalPosition:
     x: -13622762.092926597
-    y: 1600
+    y: 4600
     z: 4550261.833498782
   m_LocalRotation:
     value:
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbba49acb848c0448694828560b07fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpdateClippingPlanes: 1
+  UpdateClippingPlanes: 0
   UseCameraViewportProperties: 1
   verticalFov: 60
   horizontalFov: 88.85689
@@ -271,7 +271,7 @@ MonoBehaviour:
   position:
     x: -122.37535400000002
     y: 37.79326299999998
-    z: 1600
+    z: 4600
     SRWkid: 4326
   rotation:
     Heading: 0
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6278407023796632402}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27afbdfc83e47004e95ef7726ed4a9cc, type: 3}
   m_Name: 
