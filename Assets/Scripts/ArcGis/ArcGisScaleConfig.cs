@@ -8,7 +8,7 @@ public class ArcGisScaleConfig : MonoBehaviour
     public Vector3 TargetScale = new Vector3(0.0002f, 0.0002f, 0.0002f);
 
     [SerializeField]
-    public int ObjectLayer = 16;
+    public int ObjectLayer = 14;
 
     public UnityEvent ZoomApplied;
 
@@ -16,6 +16,8 @@ public class ArcGisScaleConfig : MonoBehaviour
     {
         Debug.Log($"Layer set({ObjectLayer})");
         Debug.Log($"Layer set:'{LayerMask.LayerToName(ObjectLayer)}'");
+        Debug.Log("Layer:" + (int)(15 | 16));
+        Debug.Log("my Layer:" + gameObject.layer);
     }
 
     private void OnEnable()
@@ -36,7 +38,7 @@ public class ArcGisScaleConfig : MonoBehaviour
         field.SetValue(type, ObjectLayer);
 
         ZoomApplied?.Invoke();
-        
+
     }
 
 }

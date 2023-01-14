@@ -65,11 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114580763871944300, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
       propertyPath: forceFeedbackLayers.m_Bits
-      value: 65537
+      value: 81921
       objectReference: {fileID: 0}
     - target: {fileID: 114580763871944300, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
       propertyPath: tactileFeedbackLayers.m_Bits
-      value: 32769
+      value: 49153
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd61efbeb00f0ef43b0ab845f4fef280, type: 3}
