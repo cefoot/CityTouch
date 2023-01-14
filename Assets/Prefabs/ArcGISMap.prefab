@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 6278407022696184173}
   - component: {fileID: 6278407022696184170}
   - component: {fileID: 6278407022696184171}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ArcGISMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6278407022696184173
 Transform:
   m_ObjectHideFlags: 0
@@ -79,8 +79,8 @@ MonoBehaviour:
   enableExtent: 1
   extent:
     GeographicCenter:
-      x: -122.403908
-      y: 37.791767
+      x: -73.9941092674557
+      y: 40.7347250654864
       z: 0
       SRWkid: 4326
     ExtentShape: 2
@@ -99,12 +99,19 @@ MonoBehaviour:
     Type: 0
     Source: https://tiles.arcgis.com/tiles/oZfKvdlWHN1MwS48/arcgis/rest/services/TotPopTile2/MapServer
     Opacity: 0.2
+    IsVisible: 0
+    Authentication:
+      ConfigurationIndex: -1
+  - Name: New York 3D Building
+    Type: 1
+    Source: https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_NewYork_17/SceneServer
+    Opacity: 1
     IsVisible: 1
     Authentication:
       ConfigurationIndex: -1
   originPosition:
-    x: -122.403908
-    y: 37.791767
+    x: -73.9941092674557
+    y: 40.7347250654864
     z: 0
     SRWkid: 4326
   mapType: 1
@@ -131,7 +138,7 @@ GameObject:
   - component: {fileID: 6278407023796632407}
   - component: {fileID: 6278407023796632395}
   - component: {fileID: 6278407022443347163}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ArcGISCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -146,7 +153,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6278407023796632402}
   m_LocalRotation: {x: 0.70710677, y: -0.0000000025034808, z: 0.000000002503481, w: 0.7071068}
-  m_LocalPosition: {x: 3178.6167, y: 4600, z: 210.73978}
+  m_LocalPosition: {x: 0, y: 4600, z: 0}
   m_LocalScale: {x: 0.9999997, y: 1, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -167,9 +174,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsInitialized: 1
   m_LocalPosition:
-    x: -13622762.092926597
+    x: -8236986.565355013
     y: 4600
-    z: 4550261.833498782
+    z: 4973292.06161876
   m_LocalRotation:
     value:
       x: 0.70710677
@@ -230,7 +237,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6278407023796632402}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bbba49acb848c0448694828560b07fc, type: 3}
   m_Name: 
@@ -255,8 +262,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position:
-    x: -122.37535400000002
-    y: 37.79326299999998
+    x: -73.9941092674557
+    y: 40.7347250654864
     z: 4600
     SRWkid: 4326
   rotation:

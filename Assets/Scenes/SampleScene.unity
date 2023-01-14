@@ -356,6 +356,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  dataScale: {fileID: 926712363}
 --- !u!1 &391463168
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,7 +657,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &926712363
 Transform:
   m_ObjectHideFlags: 0
@@ -684,14 +685,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16de36270b2f4a45b97bcf81b0a0588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textAssetData: {fileID: 4900000, guid: ce5ffbe47ee8c384497388e0f5380c4d, type: 3}
+  textAssetData: {fileID: 4900000, guid: f844dcf296fcb2e40a82c6e7cb3d246a, type: 3}
   dataList:
     dataPoints: []
+  HPRoot: {fileID: 978120794}
 --- !u!1 &978120791 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6278407022696184169, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
   m_PrefabInstance: {fileID: 6278407022443347161}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &978120794 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6278407022696184170, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
+  m_PrefabInstance: {fileID: 6278407022443347161}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978120791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265b6a392115d8a4aa7154d8c9356e26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1229223038
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,14 +927,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArcGISMap
       objectReference: {fileID: 0}
-    - target: {fileID: 6278407022696184169, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6278407022696184169, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6278407022696184173, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -965,14 +970,6 @@ PrefabInstance:
     - target: {fileID: 6278407022696184173, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6278407023796632402, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6278407023796632406, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
