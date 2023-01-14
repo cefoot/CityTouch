@@ -1471,7 +1471,7 @@ MonoBehaviour:
       SRWkid: 4326
     ExtentShape: 2
     ShapeDimensions:
-      x: 2350
+      x: 23500000
       y: 0
   layers:
   - Name: Boston 3D Buildings

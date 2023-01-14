@@ -13,7 +13,7 @@ public class PointInfo : MonoBehaviour
     [SerializeField]
     private List<string> Infos = new List<string>();
 
-    // public Renderer PointPrefabRender;
+    public GameObject PointPrefabRender;
     // public Renderer PinRender;
 
     public ArcGISCameraComponent ArcGISCamera;
@@ -106,7 +106,7 @@ public class PointInfo : MonoBehaviour
                 OnGround = true;
 
                 // The features were not being rendered until they are placed on the ground
-                // PointPrefabRender.transform.parent.gameObject.SetActive(true);
+                PointPrefabRender.transform.parent.gameObject.SetActive(true);
             }
         }
     }
