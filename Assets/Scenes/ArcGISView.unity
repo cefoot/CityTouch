@@ -170,6 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 217169554}
   - component: {fileID: 217169553}
+  - component: {fileID: 217169555}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -254,6 +255,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &217169555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217169552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &237629405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,7 +1165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534996e69d88d493dbeb6873941edc0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FeatureLayerURL: https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex/FeatureServer/0
+  FeatureLayerURL: https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex_cut/FeatureServer/0
   TouchablePrefab: {fileID: 6812567467488529675, guid: 69935d6b2f0724c79bf574a85ed51490, type: 3}
   Points: []
   ArcGISCamera: {fileID: 975785865}
@@ -1244,6 +1265,7 @@ GameObject:
   - component: {fileID: 975785864}
   - component: {fileID: 975785863}
   - component: {fileID: 975785862}
+  - component: {fileID: 975785868}
   m_Layer: 0
   m_Name: ArcGISCamera
   m_TagString: Untagged
@@ -1280,9 +1302,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsInitialized: 1
   m_LocalPosition:
-    x: -7913444.895872631
+    x: -8232838.882674515
     y: 1600
-    z: 5215180.750271239
+    z: 4969394.276493528
   m_LocalRotation:
     value:
       x: 0.23106547
@@ -1318,8 +1340,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position:
-    x: -71.087685
-    y: 42.36080699999999
+    x: -73.95685
+    y: 40.708188
     z: 1600
     SRWkid: 4326
   rotation:
@@ -1410,6 +1432,39 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &975785868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975785858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1323373000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,8 +1537,8 @@ MonoBehaviour:
   enableExtent: 1
   extent:
     GeographicCenter:
-      x: -71.087685
-      y: 42.360807
+      x: -73.95685
+      y: 40.708188
       z: 0
       SRWkid: 4326
     ExtentShape: 2
@@ -1499,8 +1554,8 @@ MonoBehaviour:
     Authentication:
       ConfigurationIndex: -1
   originPosition:
-    x: -71.087685
-    y: 42.360807
+    x: -73.95685
+    y: 40.708188
     z: 0
     SRWkid: 4326
   mapType: 1
@@ -1525,9 +1580,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LocalPosition:
-    x: -7913444.895872631
+    x: -8232838.882674515
     y: 0
-    z: 5215180.750271239
+    z: 4969394.276493528
   m_LocalRotation:
     value:
       x: 0
