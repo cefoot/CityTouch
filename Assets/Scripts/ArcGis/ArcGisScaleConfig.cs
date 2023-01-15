@@ -1,4 +1,5 @@
 ﻿using System;
+using Esri.HPFramework;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,9 +9,11 @@ public class ArcGisScaleConfig : MonoBehaviour
     public Vector3 TargetScale = new Vector3(0.0002f, 0.0002f, 0.0002f);
 
     [SerializeField]
-    public int ObjectLayer = 14;
+    public int ObjectLayer = 16;
 
     public UnityEvent ZoomApplied;
+
+    public Transform dataScale;
 
     private void OnValidate()
     {
@@ -31,6 +34,7 @@ public class ArcGisScaleConfig : MonoBehaviour
         }
         var field = type.GetField("Zoom");
         field.SetValue(type, TargetScale);
+        dataScale.transform.localScale = TargetScale;
         //RenderLayer.Layer
         type = Type.GetType("Esri.ArcGISMapsSDK.Renderer.Renderables.RenderLayer, ArcGISMapsSDK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null");
         field = type.GetField("Layer");

@@ -15,13 +15,19 @@ public class Tools : UnityEditor.Build.IPreprocessBuildWithReport
     [MenuItem("Tools/esri/Apply arcgis fix")]
     public static void ApplyArcGisFix()
     {
-        var dir = new System.IO.DirectoryInfo("Library/PackageCache/com.esri.arcgis-maps-sdk@d1c578d68416/SDK/Renderer/Renderables/");
-        Debug.Log(dir.FullName);
-        Debug.Log(string.Join(";", dir.GetFiles().Select(f => f.Name)));
+        var renderablesPath = new System.IO.DirectoryInfo("Library/PackageCache/com.esri.arcgis-maps-sdk@d1c578d68416/SDK/Renderer/Renderables/");
+        var componentsPath = new System.IO.DirectoryInfo("Library/PackageCache/com.esri.arcgis-maps-sdk@d1c578d68416/SDK/Components/");
+        Debug.Log(renderablesPath.FullName);
+        Debug.Log(string.Join(";", renderablesPath.GetFiles().Select(f => f.Name)));
         var f1 = Resources.LoadAll<TextAsset>("ArcGisFix");
+        
         foreach (var item in f1)
         {
-            var file = new System.IO.FileInfo(System.IO.Path.Combine(dir.FullName, item.name));
+            var file = new System.IO.FileInfo(System.IO.Path.Combine(renderablesPath.FullName, item.name));
+            if (AssetDatabase.GetAssetPath(item).Contains("Components"))
+            {
+                file = new System.IO.FileInfo(System.IO.Path.Combine(componentsPath.FullName, item.name));
+            }
             using (var stream = file.OpenWrite())
             {
                 stream.Position = 0;
