@@ -61,8 +61,8 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
     public HPRoot HPRoot;
     public Material material;
     public bool ColorBasedOnData = false;
-    public float AmplitudeOffset = 250f;
-    public float MaxAddedAltitude = 340f;
+    public float AmplitudeOffset = 300f;
+    public float MaxAddedAltitude = 100f;
     private Dictionary<HxWaveSpatialEffect, float> _hxWaveSpatialEffects = new Dictionary<HxWaveSpatialEffect, float>();
 
     // Start is called before the first frame update
@@ -207,7 +207,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
             PointInfo.SetSpawnHeight(PrefabSpawnHeight);
 
             int count = int.Parse(feature.properties.count_);
-            for (var i = 0; i < count; i++)
+            for (var i = 0; i < count*2; i++)
             {
                 Debug.Log("count" + count);
                 float rdNum = 0.5f;// Random.Range(0.2f, 1f);
@@ -224,8 +224,8 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
                 dataPoint.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
                 dataPoint.AddComponent<HPTransform>();
                 var arcGisLocation = dataPoint.AddComponent<ArcGISLocationComponent>();
-                var LatOffset = Random.Range(-0.0001f, 0.0001f);
-                var LngOffset = Random.Range(-0.0001f, 0.0001f);
+                var LatOffset = Random.Range(-0.0005f, 0.0005f);
+                var LngOffset = Random.Range(-0.0005f, 0.0005f);
                 arcGisLocation.Position = new Esri.GameEngine.Geometry.ArcGISPoint(
                     Longitude + LngOffset,
                     Latitude + LatOffset,
