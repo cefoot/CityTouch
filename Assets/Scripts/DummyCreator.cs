@@ -11,9 +11,11 @@ public class DummyCreator : MonoBehaviour
     public int CountZ = 20;
     public float MaxHeight = .3f;
     public Vector3 Offset = new Vector3(.5f, 0f, .5f);
+    private Dictionary<HxWaveSpatialEffect, float> _hxWaveSpatialEffects = new Dictionary<HxWaveSpatialEffect, float>();
     // Start is called before the first frame update
     void Start()
     {
+        SettingsHelper.OnChangeCallback = UpdateTactiles;
         var sizeX = 1f / CountX;
         var sizeZ = 1f / CountZ;
         for (var x = 0; x < CountX; x++)
@@ -43,4 +45,12 @@ public class DummyCreator : MonoBehaviour
         }
     }
 
+    private void UpdateTactiles()
+    {
+        foreach (var item in _hxWaveSpatialEffects)
+        {
+            item.Key.amplitudeN = item.Value * SettingsHelper.AmplitudeModifier;
+            item.Key.frequencyHz = item.Value * SettingsHelper.FrequencyModifier;
+        }
+    }
 }

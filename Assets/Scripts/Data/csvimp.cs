@@ -36,8 +36,17 @@ public class csvimp : MonoBehaviour
 {
     public TextAsset textAssetData;
 
-    [System.Serializable]
+    public Material material;
 
+    public bool AmplitudeIsModified = false;
+    public float DefaultAmplitude = 20F;
+    public bool FrequencyIsModified = false;
+    public float DefaultFrequency = 40F;
+    public float AmplitudeOffset = 170f;
+    public bool ColorBasedOnData = false;
+    public float MaxAddedAltitude = 340f;
+
+    [System.Serializable]
     public class Data
     {
         public Vector2[] dataPoints;
@@ -46,6 +55,18 @@ public class csvimp : MonoBehaviour
     public Data dataList = new Data();
     private CultureInfo culture;
     public HPRoot HPRoot;
+    private Dictionary<HxWaveSpatialEffect, float> _hxWaveSpatialEffects = new Dictionary<HxWaveSpatialEffect, float>();
+
+    public int OnlyTakeFristXFromData = 100;
+
+    public void UpdateTactiles()
+    {
+        foreach (var item in _hxWaveSpatialEffects)
+        {
+            item.Key.amplitudeN = item.Value * SettingsHelper.AmplitudeModifier;
+            item.Key.frequencyHz = item.Value * SettingsHelper.FrequencyModifier;
+        }
+    }
 
     private void OnEnable()
     {
@@ -66,34 +87,43 @@ public class csvimp : MonoBehaviour
 
     IEnumerator readCSV()
     {
+        SettingsHelper.OnChangeCallback = UpdateTactiles;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForSecondsRealtime(5f);
         IEnumerable<Crime> data;
         using (var reader = new StringReader(textAssetData.text))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-            data = csv.GetRecords<Crime>().Take(400);
+            data = csv.GetRecords<Crime>().Take(OnlyTakeFristXFromData);
             foreach (var point in data)
             {
-                yield return new WaitForEndOfFrame();
-                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                cube.transform.SetParent(HPRoot.transform, false);
+                float rdNum = 0.5f;// Random.Range(0.2f, 1f);
+                var dataPoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                dataPoint.layer = gameObject.layer;
+                dataPoint.transform.SetParent(HPRoot.transform, false);
+                dataPoint.GetComponent<Renderer>().material = material;
+                var color = ColorBasedOnData ? Color.HSVToRGB(.3f - (rdNum / 1f) * .3f, 1f, 1f) : dataPoint.GetComponent<Renderer>().material.color;
+                color.a = 0.45f;
+                dataPoint.GetComponent<Renderer>().material.color = color;
+                Destroy(dataPoint.GetComponent<Collider>());
+                dataPoint.AddComponent<MeshCollider>();
 
-                float rdNum = Random.Range(0.8f, 1.05f);
-
-                //TODO: set HP transforms
-                cube.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
-                cube.AddComponent<HPTransform>();
-                cube.AddComponent<ArcGISLocationComponent>().Position = new Esri.GameEngine.Geometry.ArcGISPoint(
+                dataPoint.transform.localScale = new Vector3(0.015f, 0.015f, 0.015f);
+                dataPoint.AddComponent<HPTransform>();
+                var arcGisLocation = dataPoint.AddComponent<ArcGISLocationComponent>();
+                arcGisLocation.Position = new Esri.GameEngine.Geometry.ArcGISPoint(
                     point.Longitude,
                     point.Latitude,
-                    rdNum, 
+                    AmplitudeOffset + Random.Range(0f, MaxAddedAltitude),
                     new Esri.GameEngine.Geometry.ArcGISSpatialReference(4326));
-                yield return new WaitForEndOfFrame();
-                Debug.Log($"Long:{point.Longitude}:Lat:{point.Latitude} ({cube.transform.localPosition.ToString("F3")})");
-                var worldPos = cube.transform.position;
-
-                //cube.transform.localPosition = transform.InverseTransformDirection(cube.transform.localPosition);
-                //hpTrans.UniversePosition = new Unity.Mathematics.double3(point.Latitude, rdNum, point.Longitude);
-                //cube.transform.localPosition = new Vector3(point.Latitude, rdNum, point.Longitude);
+                arcGisLocation.Rotation = new Esri.ArcGISMapsSDK.Utils.GeoCoord.ArcGISRotation(0d, 90d, 0d);
+                var hxWaveDirectEffect = dataPoint.AddComponent<HxWaveSpatialEffect>();
+                _hxWaveSpatialEffects[hxWaveDirectEffect] = rdNum;
+                hxWaveDirectEffect.amplitudeN = AmplitudeIsModified ? rdNum * SettingsHelper.AmplitudeModifier : DefaultAmplitude;
+                hxWaveDirectEffect.frequencyHz = FrequencyIsModified ? rdNum * SettingsHelper.FrequencyModifier : DefaultFrequency;
+                var hxSphereBoundingVolume = dataPoint.AddComponent<HxSphereBoundingVolume>();
+                hxWaveDirectEffect.BoundingVolume = hxSphereBoundingVolume;
+                hxSphereBoundingVolume.RadiusM = .5f;
             }
         }
     }

@@ -537,12 +537,12 @@ public class HxPatch : MonoBehaviour, HxCore.IHxUpdate {
         vv2D.Add(hxUV1);
       }
 
-      if ((meshCollider.sharedMesh?.uv2?.Length ?? 0) != 0 ) {
-        using (var wrappedHxUV2 = HxReusableObjectPool<HaptxApi.Vector2D>.GetWrapped()) {
-          HaptxApi.Vector2D hxUV2 = wrappedHxUV2.ReusableObject;
-          HxShared.HxFromUnity(objectTraceResult.textureCoord2, hxUV2);
-        }
-      }
+      //if ((meshCollider.sharedMesh?.uv2?.Length ?? 0) != 0 ) {
+      //  using (var wrappedHxUV2 = HxReusableObjectPool<HaptxApi.Vector2D>.GetWrapped()) {
+      //    HaptxApi.Vector2D hxUV2 = wrappedHxUV2.ReusableObject;
+      //    HxShared.HxFromUnity(objectTraceResult.textureCoord2, hxUV2);
+      //  }
+      //}
     }
 
     core.ContactInterpreter.addSampleResult(_peripheralId, tactorDatum.tactor.id,
