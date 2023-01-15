@@ -63,7 +63,9 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
     public bool ColorBasedOnData = false;
     public float AmplitudeOffset = 100f;
     public float MaxAddedAltitude = 10f;
+    public int maxParticleCnt = 10;
     private Dictionary<HxWaveSpatialEffect, float> _hxWaveSpatialEffects = new Dictionary<HxWaveSpatialEffect, float>();
+    private List<ArcGISLocationComponent> _objcts = new List<ArcGISLocationComponent>();
 
     // Start is called before the first frame update
     void Start()
@@ -89,7 +91,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
         }
         else
         {
-            CreateGameObjectsFromResponse(Request.downloadHandler.text);
+            yield return CreateGameObjectsFromResponse(Request.downloadHandler.text);
             PopulatePointDropdown();
         }
     }
@@ -152,7 +154,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
     // Given a valid response from our query request to the feature layer, this method will parse the response text
     // into geometries and properties which it will use to create new GameObjects and locate them correctly in the world.
     // This logic will differ based on the properties you are trying to parse out of the response.
-    private void CreateGameObjectsFromResponse(string Response)
+    private IEnumerator CreateGameObjectsFromResponse(string Response)
     {
         SettingsHelper.OnChangeCallback = OnWaveValuesChanged;
         // Deserialize the JSON response from the query.
@@ -166,6 +168,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
             {
                 continue;
             }
+            yield return new WaitForEndOfFrame();
             double Longitude = feature.geometry.coordinates[0];
             double Latitude = feature.geometry.coordinates[1];
 
@@ -180,9 +183,10 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
             Points.Add(NewPrefab);
             NewPrefab.SetActive(true);
             NewPrefab.AddComponent<HPTransform>();
-            var LocationComponent = NewPrefab.AddComponent<ArcGISLocationComponent>();
-            LocationComponent.Position = Position;
-            LocationComponent.Rotation = new ArcGISRotation(157d, 90d, 0d);
+            var locationComponent = NewPrefab.AddComponent<ArcGISLocationComponent>();
+            _objcts.Add(locationComponent);
+            locationComponent.Position = Position;
+            locationComponent.Rotation = new ArcGISRotation(157d, 90d, 0d);
             float datVal = int.Parse(feature.properties.count_);
             datVal -= min;
             datVal /= (max - min);
@@ -206,10 +210,9 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
             PointInfo.ArcGISCamera = ArcGISCamera;
             PointInfo.SetSpawnHeight(PrefabSpawnHeight);
 
-            int count = int.Parse(feature.properties.count_);
-            for (var i = 0; i < count * 2; i++)
+            var count = datVal * maxParticleCnt;
+            for (var i = 0; i < datVal * maxParticleCnt; i++)
             {
-                Debug.Log("count" + count);
                 float rdNum = 0.5f;// Random.Range(0.2f, 1f);
                 var dataPoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 dataPoint.layer = gameObject.layer;
@@ -223,6 +226,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
                 dataPoint.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
                 dataPoint.AddComponent<HPTransform>();
                 var arcGisLocation = dataPoint.AddComponent<ArcGISLocationComponent>();
+                _objcts.Add(arcGisLocation);
                 var LatOffset = Random.Range(-0.0010f, 0.0010f);
                 var LngOffset = Random.Range(-0.0010f, 0.0010f);
                 arcGisLocation.Position = new Esri.GameEngine.Geometry.ArcGISPoint(
@@ -232,6 +236,23 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
                     new Esri.GameEngine.Geometry.ArcGISSpatialReference(4326));
                 arcGisLocation.Rotation = new Esri.ArcGISMapsSDK.Utils.GeoCoord.ArcGISRotation(0d, 90d, 0d);
             }
+        }
+    }
+
+    public void UpdatePositions()
+    {
+        _objcts.ForEach(o => Destroy(o.gameObject));
+        _objcts.Clear();
+        _hxWaveSpatialEffects.Clear();
+        //StartCoroutine(UpdateObjLocations());
+    }
+
+    private IEnumerator UpdateObjLocations()
+    {
+        foreach (var item in _objcts)
+        {
+            yield return new WaitForEndOfFrame();
+            item.SyncPositionWithHPTransform();
         }
     }
 
