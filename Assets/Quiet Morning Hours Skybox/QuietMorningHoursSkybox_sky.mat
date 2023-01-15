@@ -49,12 +49,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
+<<<<<<< HEAD
     m_Floats:
     - _Exposure: 1
     - _Rotation: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Tint: {r: 0.735849, g: 0.6150587, b: 0.6150587, a: 0.5}
+=======
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+>>>>>>> c6e82a9f39f26567c26eca1990be9b841fc447dd
   m_BuildTextureStacks: []
 --- !u!1002 &2100001
 EditorExtensionImpl:

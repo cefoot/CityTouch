@@ -36,7 +36,7 @@ class NYCHexaProperties
 
 public class NYCHexaFeatureLayerQuery : MonoBehaviour
 {
-    public string FeatureLayerURL = "https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex_cut/FeatureServer/0";
+    public string FeatureLayerURL = "https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex_cut_smaller/FeatureServer/0";
     
     // This prefab will be instatiated for each feature we parse
     public GameObject TouchablePrefab;
@@ -69,6 +69,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
     {
         // To learn more about the Feature Layer rest API and all the things that are possible checkout
         // https://developers.arcgis.com/rest/services-reference/enterprise/query-feature-service-layer-.htm
+
 
         string QueryRequestURL = FeatureLayerURL + "/Query?" + MakeRequestHeaders();
         Debug.Log(QueryRequestURL);
@@ -179,9 +180,9 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
             float datVal = int.Parse(feature.properties.count_);
             datVal -= min;
             datVal /= (max - min);
-            NewPrefab.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0.49f, datVal, 0.49f);
+            NewPrefab.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0.24f, datVal, 0.24f);
             var effect = NewPrefab.GetComponentInChildren<HxWaveSpatialEffect>();
-            effect.transform.localScale = new Vector3(0.49f, .5f, 0.49f);
+            effect.transform.localScale = new Vector3(0.24f, .3f, 0.24f);
 
             _keyValuePairs[effect] = datVal;
             effect.amplitudeN = datVal * SettingsHelper.AmplitudeModifier;
