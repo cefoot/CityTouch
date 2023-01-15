@@ -1165,10 +1165,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534996e69d88d493dbeb6873941edc0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FeatureLayerURL: https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex_cut/FeatureServer/0
+  FeatureLayerURL: https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex_cut_smaller/FeatureServer/0
   TouchablePrefab: {fileID: 6812567467488529675, guid: 69935d6b2f0724c79bf574a85ed51490, type: 3}
   Points: []
   ArcGISCamera: {fileID: 975785865}
+  HPRoot: {fileID: 1323373004}
+  material: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  ColorBasedOnData: 0
+  AmplitudeOffset: 170
+  MaxAddedAltitude: 340
 --- !u!1 &931960739
 GameObject:
   m_ObjectHideFlags: 0
