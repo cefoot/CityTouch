@@ -219,7 +219,6 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
                 color.a = 0.45f;
                 dataPoint.GetComponent<Renderer>().material.color = color;
                 Destroy(dataPoint.GetComponent<Collider>());
-                dataPoint.AddComponent<MeshCollider>();
 
                 dataPoint.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
                 dataPoint.AddComponent<HPTransform>();
@@ -232,13 +231,6 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
                     AmplitudeOffset + Random.Range(0f, MaxAddedAltitude * datVal),
                     new Esri.GameEngine.Geometry.ArcGISSpatialReference(4326));
                 arcGisLocation.Rotation = new Esri.ArcGISMapsSDK.Utils.GeoCoord.ArcGISRotation(0d, 90d, 0d);
-                var hxWaveDirectEffect = dataPoint.AddComponent<HxWaveSpatialEffect>();
-                _hxWaveSpatialEffects[hxWaveDirectEffect] = rdNum;
-                hxWaveDirectEffect.amplitudeN = SettingsHelper.AmplitudeModifier;
-                hxWaveDirectEffect.frequencyHz = SettingsHelper.FrequencyModifier;
-                var hxSphereBoundingVolume = dataPoint.AddComponent<HxSphereBoundingVolume>();
-                hxWaveDirectEffect.BoundingVolume = hxSphereBoundingVolume;
-                // hxSphereBoundingVolume.RadiusM = .5f;
             }
         }
     }
