@@ -2,19 +2,32 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Hologram KM Body
   m_Shader: {fileID: 4800000, guid: e99f8b80b1693284587af0c131f61f3d, type: 3}
-  m_ShaderKeywords: _COLORGLITCHFEATURE_ON _DISSOLVEFEATURE_ON _FRESNELALPHAFEATURE_ON
-    _FRESNELCOLORFEATURE_ON _FRESNELFEATURE_ON _GLITCHDEBUG_ON _GRAINFEATURE_ON _LINE1FEATURE_ON
-    _LINE2FEATURE_ON _LINEBOTHFEATURE_ON _LINEGLITCHFEATURE_ON _NORMALMAPFEATURE_ON
-    _POSITIONFEATURE_Y _POSITIONSPACEFEATURE_WORLD _RANDOMGLITCHFEATURE_ON _SOFTINTERSECTION1FEATURE_OFF
-    _SOFTINTERSECTION2FEATURE_OFF _SOFTINTERSECTIONFEATURE_COLOR _SOFTINTERSECTION_COLOR
-    _ZWRITE_ON
+  m_ValidKeywords:
+  - _COLORGLITCHFEATURE_ON
+  - _DISSOLVEFEATURE_ON
+  - _FRESNELFEATURE_ON
+  - _GRAINFEATURE_ON
+  - _LINE2FEATURE_ON
+  - _LINEGLITCHFEATURE_ON
+  - _NORMALMAPFEATURE_ON
+  - _POSITIONFEATURE_Y
+  - _POSITIONSPACEFEATURE_WORLD
+  - _SOFTINTERSECTION1FEATURE_OFF
+  - _SOFTINTERSECTION2FEATURE_OFF
+  m_InvalidKeywords:
+  - _FRESNELALPHAFEATURE_ON
+  - _FRESNELCOLORFEATURE_ON
+  - _GLITCHDEBUG_ON
+  - _SOFTINTERSECTIONFEATURE_COLOR
+  - _SOFTINTERSECTION_COLOR
+  - _ZWRITE_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -80,8 +93,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
-    - _Alpha: 1
+    - _Alpha: 0.19
     - _AlphaMaskAffect: 0.5
     - _AlphaMaskFeature: 0
     - _ColorGlitchAffect: 0.3
@@ -122,13 +136,13 @@ Material:
     - _GlitchRemapMaxOld: 1
     - _GlitchRemapMinNew: -1
     - _GlitchRemapMinOld: 0
-    - _GrainAffect: 1
+    - _GrainAffect: 0.57
     - _GrainFeature: 1
     - _GrainPower: 4.4
     - _Hide: -1
     - _Keyword0: 0
     - _Line1Alpha: 0.15
-    - _Line1Feature: 1
+    - _Line1Feature: 0
     - _Line1Frequency: 100
     - _Line1Hardness: 1.45
     - _Line1InvertedThickness: 0
@@ -142,7 +156,7 @@ Material:
     - _LineAlpha: 1
     - _LineAlpha1: 0.15
     - _LineAlpha2: 0.1
-    - _LineBothFeature: 1
+    - _LineBothFeature: 0
     - _LineFrequency: 6
     - _LineFrequency1: 100
     - _LineFrequency2: 1
@@ -177,7 +191,7 @@ Material:
     - _PositionSpaceFeature: 0
     - _RandomGlitchAmount: 0.122
     - _RandomGlitchConstant: 0
-    - _RandomGlitchFeature: 1
+    - _RandomGlitchFeature: 0
     - _RandomGlitchTiling: 2.83
     - _RandomOffset: 73887
     - _SoftIntersection: 2
@@ -222,3 +236,4 @@ Material:
     - _RandomGlitchOffset: {r: -0.5, g: 0, b: 0, a: 0}
     - _Scale: {r: 0.1, g: 1.01, b: 5, a: 0}
     - _SoftIntersectionColor: {r: 63.999992, g: 9.382197, b: 9.382197, a: 1}
+  m_BuildTextureStacks: []
