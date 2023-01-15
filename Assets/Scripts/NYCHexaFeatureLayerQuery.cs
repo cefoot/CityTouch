@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -6,6 +6,10 @@ using UnityEngine.UI;
 using Esri.ArcGISMapsSDK.Components;
 using Esri.GameEngine.Geometry;
 using Esri.ArcGISMapsSDK.Utils.GeoCoord;
+using Unity.VisualScripting;
+using Esri.HPFramework;
+using System.Linq;
+using System;
 
 [System.Serializable]
 class NYCFeatureCollectionData
@@ -51,6 +55,8 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
     // This camera reference will be passed to the points to calculate the distance from the camera to each point
     public ArcGISCameraComponent ArcGISCamera;
 
+    private Dictionary<HxWaveSpatialEffect, float> _keyValuePairs = new Dictionary<HxWaveSpatialEffect, float>();
+
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +81,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
         }
         else
         {
+            yield return new WaitForSecondsRealtime(5f);
             CreateGameObjectsFromResponse(Request.downloadHandler.text);
             PopulatePointDropdown();
         }
@@ -134,14 +141,18 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
         return ReturnValue;
     }
 
+
     // Given a valid response from our query request to the feature layer, this method will parse the response text
     // into geometries and properties which it will use to create new GameObjects and locate them correctly in the world.
     // This logic will differ based on the properties you are trying to parse out of the response.
     private void CreateGameObjectsFromResponse(string Response)
     {
+        SettingsHelper.OnChangeCallback = OnWaveValuesChanged;
         // Deserialize the JSON response from the query.
         var deserialized = JsonUtility.FromJson<NYCFeatureCollectionData>(Response);
         Debug.Log("deserialized" + deserialized.features);
+        float max = deserialized.features.Select(f => int.Parse(f.properties.count_)).Max();
+        float min = deserialized.features.Select(f => int.Parse(f.properties.count_)).Min();
         foreach (NYCFeature feature in deserialized.features)
         {
             Debug.Log("feature:" + feature.properties.ObjectId);
@@ -153,17 +164,29 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
 
             ArcGISPoint Position = new ArcGISPoint(Longitude, Latitude, 0, new ArcGISSpatialReference(FeatureSRWKID));
             
-            var NewPrefab = Instantiate(TouchablePrefab, this.transform);
+            var NewPrefab = Instantiate(TouchablePrefab, transform.parent);
+            NewPrefab.transform.localPosition = Vector3.zero;
+
             // change the Y value according to the count number
-            
+
             NewPrefab.name = feature.properties.ObjectId;
             Points.Add(NewPrefab);
             NewPrefab.SetActive(true);
-            var LocationComponent = NewPrefab.GetComponent<ArcGISLocationComponent>();
-            LocationComponent.enabled = true;
+            NewPrefab.AddComponent<HPTransform>();
+            var LocationComponent = NewPrefab.AddComponent<ArcGISLocationComponent>();
             LocationComponent.Position = Position;
             LocationComponent.Rotation = new ArcGISRotation(157d, 90d, 0d);
-            NewPrefab.transform.GetChild(0).gameObject.transform.localScale = new Vector3(this.transform.localScale.x, float.Parse(feature.properties.count_)*0.1, this.transform.localScale.z);
+            float datVal = int.Parse(feature.properties.count_);
+            datVal -= min;
+            datVal /= (max - min);
+            NewPrefab.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0.49f, datVal, 0.49f);
+            var effect = NewPrefab.GetComponentInChildren<HxWaveSpatialEffect>();
+            effect.transform.localScale = new Vector3(0.49f, .5f, 0.49f);
+
+            _keyValuePairs[effect] = datVal;
+            effect.amplitudeN = datVal * SettingsHelper.AmplitudeModifier;
+            effect.frequencyHz = datVal * SettingsHelper.FrequencyModifier;
+            
 
             var PointInfo = NewPrefab.GetComponent<PointInfo>();
 
@@ -177,6 +200,16 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
             PointInfo.SetSpawnHeight(PrefabSpawnHeight);
         }
     }
+
+    private void OnWaveValuesChanged()
+    {
+        foreach (var item in _keyValuePairs)
+        {
+            item.Key.amplitudeN = SettingsHelper.AmplitudeModifier * item.Value;
+            item.Key.frequencyHz = SettingsHelper.FrequencyModifier * item.Value;
+        }
+    }
+
     // Populates the prefab drown down with all the Points names from the Points list
     private void PopulatePointDropdown()
     {

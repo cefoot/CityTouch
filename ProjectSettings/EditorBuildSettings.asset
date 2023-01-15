@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ArcGISView.unity
-    guid: 239105d42684b472a9d6965b7e5b2080
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 45daf5bd66ff24c9fb324dcf42c49c71, type: 2}
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 407677e90a1b6f643b095bc173911c77, type: 2}
