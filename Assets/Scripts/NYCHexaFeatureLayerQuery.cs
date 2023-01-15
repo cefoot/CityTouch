@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using Esri.ArcGISMapsSDK.Components;
 using Esri.GameEngine.Geometry;
+using Esri.ArcGISMapsSDK.Utils.GeoCoord;
 
 [System.Serializable]
 class NYCFeatureCollectionData
@@ -31,7 +32,7 @@ class NYCHexaProperties
 
 public class NYCHexaFeatureLayerQuery : MonoBehaviour
 {
-    public string FeatureLayerURL = "https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex/FeatureServer/0";
+    public string FeatureLayerURL = "https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex_cut/FeatureServer/0";
     
     // This prefab will be instatiated for each feature we parse
     public GameObject TouchablePrefab;
@@ -150,15 +151,19 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
             double Longitude = feature.geometry.coordinates[0];
             double Latitude = feature.geometry.coordinates[1];
 
-            ArcGISPoint Position = new ArcGISPoint(Longitude, Latitude, PrefabSpawnHeight, new ArcGISSpatialReference(FeatureSRWKID));
-
+            ArcGISPoint Position = new ArcGISPoint(Longitude, Latitude, 0, new ArcGISSpatialReference(FeatureSRWKID));
+            
             var NewPrefab = Instantiate(TouchablePrefab, this.transform);
+            // change the Y value according to the count number
+            
             NewPrefab.name = feature.properties.ObjectId;
             Points.Add(NewPrefab);
             NewPrefab.SetActive(true);
             var LocationComponent = NewPrefab.GetComponent<ArcGISLocationComponent>();
             LocationComponent.enabled = true;
             LocationComponent.Position = Position;
+            LocationComponent.Rotation = new ArcGISRotation(157d, 90d, 0d);
+            NewPrefab.transform.GetChild(0).gameObject.transform.localScale = new Vector3(this.transform.localScale.x, float.Parse(feature.properties.count_)*0.1, this.transform.localScale.z);
 
             var PointInfo = NewPrefab.GetComponent<PointInfo>();
 
