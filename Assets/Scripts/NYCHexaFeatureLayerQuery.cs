@@ -223,9 +223,6 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
                 dataPoint.layer = gameObject.layer;
                 dataPoint.transform.SetParent(HPRoot.transform, false);
                 dataPoint.GetComponent<Renderer>().material = material;
-                var color = ColorBasedOnData ? Color.HSVToRGB(.3f - (rdNum / 1f) * .3f, 1f, 1f) : dataPoint.GetComponent<Renderer>().material.color;
-                color.a = 0.45f;
-                dataPoint.GetComponent<Renderer>().material.color = color;
                 Destroy(dataPoint.GetComponent<Collider>());
 
                 dataPoint.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
