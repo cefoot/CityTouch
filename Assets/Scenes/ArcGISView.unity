@@ -1169,6 +1169,11 @@ MonoBehaviour:
   TouchablePrefab: {fileID: 6812567467488529675, guid: 69935d6b2f0724c79bf574a85ed51490, type: 3}
   Points: []
   ArcGISCamera: {fileID: 975785865}
+  HPRoot: {fileID: 1323373004}
+  material: {fileID: 7181078435408617500, guid: ed6fc41efe904d64ea6b56c9a33d2c3f, type: 3}
+  ColorBasedOnData: 0
+  AmplitudeOffset: 170
+  MaxAddedAltitude: 340
 --- !u!1 &931960739
 GameObject:
   m_ObjectHideFlags: 0

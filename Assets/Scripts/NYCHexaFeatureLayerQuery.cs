@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 using Esri.ArcGISMapsSDK.Components;
 using Esri.GameEngine.Geometry;
 using Esri.ArcGISMapsSDK.Utils.GeoCoord;
@@ -57,6 +58,12 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
 
     private Dictionary<HxWaveSpatialEffect, float> _keyValuePairs = new Dictionary<HxWaveSpatialEffect, float>();
 
+    public HPRoot HPRoot;
+    public Material material;
+    public bool ColorBasedOnData = false;
+    public float AmplitudeOffset = 170f;
+    public float MaxAddedAltitude = 340f;
+    private Dictionary<HxWaveSpatialEffect, float> _hxWaveSpatialEffects = new Dictionary<HxWaveSpatialEffect, float>();
 
     // Start is called before the first frame update
     void Start()
@@ -199,6 +206,37 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
 
             PointInfo.ArcGISCamera = ArcGISCamera;
             PointInfo.SetSpawnHeight(PrefabSpawnHeight);
+
+            foreach (var point in feature.properties.count_)
+            {
+                float rdNum = 0.5f;// Random.Range(0.2f, 1f);
+                var dataPoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                dataPoint.layer = gameObject.layer;
+                dataPoint.transform.SetParent(HPRoot.transform, false);
+                dataPoint.GetComponent<Renderer>().material = material;
+                var color = ColorBasedOnData ? Color.HSVToRGB(.3f - (rdNum / 1f) * .3f, 1f, 1f) : dataPoint.GetComponent<Renderer>().material.color;
+                color.a = 0.45f;
+                dataPoint.GetComponent<Renderer>().material.color = color;
+                Destroy(dataPoint.GetComponent<Collider>());
+                dataPoint.AddComponent<MeshCollider>();
+
+                dataPoint.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+                dataPoint.AddComponent<HPTransform>();
+                var arcGisLocation = dataPoint.AddComponent<ArcGISLocationComponent>();
+                arcGisLocation.Position = new Esri.GameEngine.Geometry.ArcGISPoint(
+                    Longitude,
+                    Latitude,
+                    AmplitudeOffset + Random.Range(0f, MaxAddedAltitude),
+                    new Esri.GameEngine.Geometry.ArcGISSpatialReference(4326));
+                arcGisLocation.Rotation = new Esri.ArcGISMapsSDK.Utils.GeoCoord.ArcGISRotation(0d, 90d, 0d);
+                var hxWaveDirectEffect = dataPoint.AddComponent<HxWaveSpatialEffect>();
+                _hxWaveSpatialEffects[hxWaveDirectEffect] = rdNum;
+                hxWaveDirectEffect.amplitudeN = SettingsHelper.AmplitudeModifier;
+                hxWaveDirectEffect.frequencyHz = SettingsHelper.FrequencyModifier;
+                var hxSphereBoundingVolume = dataPoint.AddComponent<HxSphereBoundingVolume>();
+                hxWaveDirectEffect.BoundingVolume = hxSphereBoundingVolume;
+                hxSphereBoundingVolume.RadiusM = .5f;
+            }
         }
     }
 
