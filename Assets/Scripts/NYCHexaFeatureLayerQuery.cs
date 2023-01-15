@@ -224,8 +224,8 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
                 dataPoint.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
                 dataPoint.AddComponent<HPTransform>();
                 var arcGisLocation = dataPoint.AddComponent<ArcGISLocationComponent>();
-                var LatOffset = Random.Range(-0.0015f, 0.0015f);
-                var LngOffset = Random.Range(-0.0015f, 0.0015f);
+                var LatOffset = Random.Range(-0.0010f, 0.0010f);
+                var LngOffset = Random.Range(-0.0010f, 0.0010f);
                 arcGisLocation.Position = new Esri.GameEngine.Geometry.ArcGISPoint(
                     Longitude + LngOffset,
                     Latitude + LatOffset,
