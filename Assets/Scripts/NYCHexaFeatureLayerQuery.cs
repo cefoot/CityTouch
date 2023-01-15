@@ -163,7 +163,6 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
         float min = deserialized.features.Select(f => int.Parse(f.properties.count_)).Min();
         foreach (NYCFeature feature in deserialized.features)
         {
-            Debug.Log("feature:" + feature.properties.ObjectId);
             if(feature.geometry.coordinates == null) {
                 continue;
             }
@@ -207,8 +206,10 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
             PointInfo.ArcGISCamera = ArcGISCamera;
             PointInfo.SetSpawnHeight(PrefabSpawnHeight);
 
-            foreach (var point in feature.properties.count_)
+            int count = int.Parse(feature.properties.count_);
+            for (var i = 0; i < count; i++)
             {
+                Debug.Log("count" + count);
                 float rdNum = 0.5f;// Random.Range(0.2f, 1f);
                 var dataPoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 dataPoint.layer = gameObject.layer;
@@ -235,7 +236,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
                 hxWaveDirectEffect.frequencyHz = SettingsHelper.FrequencyModifier;
                 var hxSphereBoundingVolume = dataPoint.AddComponent<HxSphereBoundingVolume>();
                 hxWaveDirectEffect.BoundingVolume = hxSphereBoundingVolume;
-                hxSphereBoundingVolume.RadiusM = .5f;
+                // hxSphereBoundingVolume.RadiusM = .5f;
             }
         }
     }
