@@ -61,7 +61,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
     public HPRoot HPRoot;
     public Material material;
     public bool ColorBasedOnData = false;
-    public float AmplitudeOffset = 170f;
+    public float AmplitudeOffset = 250f;
     public float MaxAddedAltitude = 340f;
     private Dictionary<HxWaveSpatialEffect, float> _hxWaveSpatialEffects = new Dictionary<HxWaveSpatialEffect, float>();
 
@@ -221,12 +221,14 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
                 Destroy(dataPoint.GetComponent<Collider>());
                 dataPoint.AddComponent<MeshCollider>();
 
-                dataPoint.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+                dataPoint.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
                 dataPoint.AddComponent<HPTransform>();
                 var arcGisLocation = dataPoint.AddComponent<ArcGISLocationComponent>();
+                var LatOffset = Random.Range(-0.0001f, 0.0001f);
+                var LngOffset = Random.Range(-0.0001f, 0.0001f);
                 arcGisLocation.Position = new Esri.GameEngine.Geometry.ArcGISPoint(
-                    Longitude,
-                    Latitude,
+                    Longitude + LngOffset,
+                    Latitude + LatOffset,
                     AmplitudeOffset + Random.Range(0f, MaxAddedAltitude),
                     new Esri.GameEngine.Geometry.ArcGISSpatialReference(4326));
                 arcGisLocation.Rotation = new Esri.ArcGISMapsSDK.Utils.GeoCoord.ArcGISRotation(0d, 90d, 0d);
