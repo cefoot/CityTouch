@@ -2915,6 +2915,11 @@ MonoBehaviour:
   TouchablePrefab: {fileID: 6812567467488529675, guid: 69935d6b2f0724c79bf574a85ed51490, type: 3}
   Points: []
   ArcGISCamera: {fileID: 2011190175}
+  HPRoot: {fileID: 978120794}
+  material: {fileID: 2100000, guid: 7f69e2f2f08ae894fbb9c247db41963c, type: 2}
+  ColorBasedOnData: 0
+  AmplitudeOffset: 100
+  MaxAddedAltitude: 500
 --- !u!114 &1310372908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4712,6 +4717,10 @@ PrefabInstance:
     - target: {fileID: 6278407022696184169, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
       propertyPath: m_Name
       value: ArcGISMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 6278407022696184171, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
+      propertyPath: basemap
+      value: https://www.arcgis.com/home/item.html?id=0f74af7609054be8a29e0ba5f154f0a8
       objectReference: {fileID: 0}
     - target: {fileID: 6278407022696184171, guid: 0e36d995344ea9d45a9236c1e36d2ca2, type: 3}
       propertyPath: layers.Array.size

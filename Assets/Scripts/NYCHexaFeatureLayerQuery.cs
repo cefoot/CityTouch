@@ -38,7 +38,7 @@ class NYCHexaProperties
 public class NYCHexaFeatureLayerQuery : MonoBehaviour
 {
     public string FeatureLayerURL = "https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex_cut_smaller/FeatureServer/0";
-    
+
     // This prefab will be instatiated for each feature we parse
     public GameObject TouchablePrefab;
 
@@ -108,7 +108,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
         //     "TEAM",
         //     "NAME"
         // };
-        string[] OutFields = 
+        string[] OutFields =
         {
             "ObjectId",
             "count_",
@@ -119,8 +119,8 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
         for (int i = 0; i < OutFields.Length; i++)
         {
             OutFieldHeader += OutFields[i];
-            
-            if(i < OutFields.Length - 1)
+
+            if (i < OutFields.Length - 1)
             {
                 OutFieldHeader += ",";
             }
@@ -162,14 +162,15 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
         float min = deserialized.features.Select(f => int.Parse(f.properties.count_)).Min();
         foreach (NYCFeature feature in deserialized.features)
         {
-            if(feature.geometry.coordinates == null) {
+            if (feature.geometry.coordinates == null)
+            {
                 continue;
             }
             double Longitude = feature.geometry.coordinates[0];
             double Latitude = feature.geometry.coordinates[1];
 
             ArcGISPoint Position = new ArcGISPoint(Longitude, Latitude, 0, new ArcGISSpatialReference(FeatureSRWKID));
-            
+
             var NewPrefab = Instantiate(TouchablePrefab, transform);
             NewPrefab.transform.localPosition = Vector3.zero;
 
@@ -192,7 +193,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
             _keyValuePairs[effect] = datVal;
             effect.amplitudeN = datVal * SettingsHelper.AmplitudeModifier;
             effect.frequencyHz = datVal * SettingsHelper.FrequencyModifier;
-            
+
 
             var PointInfo = NewPrefab.GetComponent<PointInfo>();
 
@@ -206,7 +207,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
             PointInfo.SetSpawnHeight(PrefabSpawnHeight);
 
             int count = int.Parse(feature.properties.count_);
-            for (var i = 0; i < count*2; i++)
+            for (var i = 0; i < count * 2; i++)
             {
                 Debug.Log("count" + count);
                 float rdNum = 0.5f;// Random.Range(0.2f, 1f);
@@ -228,7 +229,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
                 arcGisLocation.Position = new Esri.GameEngine.Geometry.ArcGISPoint(
                     Longitude + LngOffset,
                     Latitude + LatOffset,
-                    AmplitudeOffset + Random.Range(0f, MaxAddedAltitude),
+                    AmplitudeOffset + Random.Range(0f, MaxAddedAltitude * datVal),
                     new Esri.GameEngine.Geometry.ArcGISSpatialReference(4326));
                 arcGisLocation.Rotation = new Esri.ArcGISMapsSDK.Utils.GeoCoord.ArcGISRotation(0d, 90d, 0d);
                 var hxWaveDirectEffect = dataPoint.AddComponent<HxWaveSpatialEffect>();
