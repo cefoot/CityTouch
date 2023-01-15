@@ -38,9 +38,7 @@ public class csvimp : MonoBehaviour
 
     public Material material;
 
-    public bool AmplitudeIsModified = false;
     public float DefaultAmplitude = 20F;
-    public bool FrequencyIsModified = false;
     public float DefaultFrequency = 40F;
     public float AmplitudeOffset = 170f;
     public bool ColorBasedOnData = false;
@@ -63,8 +61,8 @@ public class csvimp : MonoBehaviour
     {
         foreach (var item in _hxWaveSpatialEffects)
         {
-            item.Key.amplitudeN = item.Value * SettingsHelper.AmplitudeModifier;
-            item.Key.frequencyHz = item.Value * SettingsHelper.FrequencyModifier;
+            item.Key.amplitudeN = SettingsHelper.AmplitudeModifier;
+            item.Key.frequencyHz = SettingsHelper.FrequencyModifier;
         }
     }
 
@@ -108,7 +106,7 @@ public class csvimp : MonoBehaviour
                 Destroy(dataPoint.GetComponent<Collider>());
                 dataPoint.AddComponent<MeshCollider>();
 
-                dataPoint.transform.localScale = new Vector3(0.015f, 0.015f, 0.015f);
+                dataPoint.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
                 dataPoint.AddComponent<HPTransform>();
                 var arcGisLocation = dataPoint.AddComponent<ArcGISLocationComponent>();
                 arcGisLocation.Position = new Esri.GameEngine.Geometry.ArcGISPoint(
@@ -119,8 +117,8 @@ public class csvimp : MonoBehaviour
                 arcGisLocation.Rotation = new Esri.ArcGISMapsSDK.Utils.GeoCoord.ArcGISRotation(0d, 90d, 0d);
                 var hxWaveDirectEffect = dataPoint.AddComponent<HxWaveSpatialEffect>();
                 _hxWaveSpatialEffects[hxWaveDirectEffect] = rdNum;
-                hxWaveDirectEffect.amplitudeN = AmplitudeIsModified ? rdNum * SettingsHelper.AmplitudeModifier : DefaultAmplitude;
-                hxWaveDirectEffect.frequencyHz = FrequencyIsModified ? rdNum * SettingsHelper.FrequencyModifier : DefaultFrequency;
+                hxWaveDirectEffect.amplitudeN = SettingsHelper.AmplitudeModifier;
+                hxWaveDirectEffect.frequencyHz = SettingsHelper.FrequencyModifier;
                 var hxSphereBoundingVolume = dataPoint.AddComponent<HxSphereBoundingVolume>();
                 hxWaveDirectEffect.BoundingVolume = hxSphereBoundingVolume;
                 hxSphereBoundingVolume.RadiusM = .5f;

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SettingsHelper : MonoBehaviour
 {
-    public static float AmplitudeModifier = 1;
-    public static float FrequencyModifier = 1;
+    public static float AmplitudeModifier = 20;
+    public static float FrequencyModifier = 40;
 
     public static Action OnChangeCallback;
 
