@@ -82,7 +82,6 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
         }
         else
         {
-            yield return new WaitForSecondsRealtime(5f);
             CreateGameObjectsFromResponse(Request.downloadHandler.text);
             PopulatePointDropdown();
         }
@@ -165,7 +164,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
 
             ArcGISPoint Position = new ArcGISPoint(Longitude, Latitude, 0, new ArcGISSpatialReference(FeatureSRWKID));
             
-            var NewPrefab = Instantiate(TouchablePrefab, transform.parent);
+            var NewPrefab = Instantiate(TouchablePrefab, transform);
             NewPrefab.transform.localPosition = Vector3.zero;
 
             // change the Y value according to the count number
