@@ -171,7 +171,7 @@ namespace Esri.ArcGISMapsSDK.Components
 			this.rotation = GeoUtils.FromCartesianRotation(cartesianPosition, cartesianRotation, arcGISMapComponent.View.SpatialReference, arcGISMapComponent.View.Map.MapType);
 		}
 
-		private void PushChangesToHPTransform()
+		public void PushChangesToHPTransform()
 		{
 			var cartesianPosition = arcGISMapComponent.View.GeographicToWorld(position);
 
