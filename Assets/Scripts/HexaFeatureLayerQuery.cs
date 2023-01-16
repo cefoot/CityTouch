@@ -35,7 +35,7 @@ class NYCHexaProperties
     public string ObjectId;
 }
 
-public class NYCHexaFeatureLayerQuery : MonoBehaviour
+public class HexaFeatureLayerQuery : MonoBehaviour
 {
     public string FeatureLayerURL = "https://services6.arcgis.com/wuONiWa1WYQCnLzh/arcgis/rest/services/nyc_hex_cut_smaller/FeatureServer/0";
 
@@ -67,14 +67,8 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
     private Dictionary<HxWaveSpatialEffect, float> _hxWaveSpatialEffects = new Dictionary<HxWaveSpatialEffect, float>();
     private List<ArcGISLocationComponent> _objcts = new List<ArcGISLocationComponent>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     public void LoadData()
     {
-
         StartCoroutine(GetFeatures());
     }
 
@@ -241,7 +235,7 @@ public class NYCHexaFeatureLayerQuery : MonoBehaviour
         }
     }
 
-    public void UpdatePositions()
+    public void RemoveLoadedDataPositions()
     {
         _objcts.ForEach(o => Destroy(o.gameObject));
         _objcts.Clear();

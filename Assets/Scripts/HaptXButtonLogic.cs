@@ -1,16 +1,26 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class HaptXButtonLogic : MonoBehaviour
 {
+    private TextMeshPro _text;
+
     [Serializable]
     public class BoolEvent : UnityEvent<Boolean> { }
 
     public BoolEvent ButtonPressed;
 
+    public UnityEvent ToggleEnabled;
+    public UnityEvent ToggleDisabled;
+
+    public Color TextColorOn = Color.white;
+    public Color TextColorOff = Color.black;
+
     void Start()
     {
+        _text = GetComponentInChildren<TextMeshPro>();
         if (buttonJoint != null)
         {
             HxDof dof = buttonJoint.GetOperatingDof();
@@ -25,24 +35,48 @@ public class HaptXButtonLogic : MonoBehaviour
         }
     }
 
+    public void EnableToggle()
+    {
+        BtnOn = true;
+        UpdateToggle();
+        ToggleEnabled?.Invoke();
+    }
+
+    private void UpdateToggle()
+    {
+        ButtonPressed?.Invoke(BtnOn);
+        _text.color = BtnOn ? TextColorOn : TextColorOff;
+        if (haptXEffect != null)
+        {
+            if (BtnOn)
+            {
+                haptXEffect.Play();
+            }
+            else
+            {
+                haptXEffect.Stop();
+            }
+        }
+    }
+
+    public void DisableToggle()
+    {
+        BtnOn = false;
+        UpdateToggle();
+        ToggleDisabled?.Invoke();
+    }
+
     void OnHandleStateChange(int newState)
     {
-        if (newState == buttonToggleState && buttonMesh != null && buttonMesh.material != null)
+        if (newState == buttonToggleState)
         {
-            _btnOn = !_btnOn;
-            ButtonPressed?.Invoke(_btnOn);
-            buttonMesh.material.SetFloat(Shader.PropertyToID(_EmissivePropertyName),
-                _btnOn ? btnOn : btnOff);
-            if (haptXEffect != null)
+            if (BtnOn)
             {
-                if (_btnOn)
-                {
-                    haptXEffect.Play();
-                }
-                else
-                {
-                    haptXEffect.Stop();
-                }
+                DisableToggle();
+            }
+            else
+            {
+                EnableToggle();
             }
         }
     }
@@ -56,23 +90,9 @@ public class HaptXButtonLogic : MonoBehaviour
     [Tooltip("The button state that toggles the engine.")]
     public int buttonToggleState = 0;
 
-    [Tooltip("The button mesh that toggles with start/stop.")]
-    public MeshRenderer buttonMesh = null;
-
-    [Tooltip("The emissive value to use on the button light when the engine is off.")]
-    [Range(0.0f, 1.0f)]
-    public float btnOff = 0.0f;
-
-    [Tooltip("The emissive value to use on the button light when the engine is on.")]
-    [Range(0.0f, 1.0f)]
-    public float btnOn = 1.0f;
-
     [Tooltip("The Haptic Effect to play when the engine is on.")]
     public HxHapticEffect haptXEffect = null;
 
     // Whether the engine is on.
-    private bool _btnOn = false;
-
-    // The name of the property that manages emission intensity in the button material.
-    private static readonly string _EmissivePropertyName = "_EmissionIntensity";
+    public bool BtnOn = false;
 }
